@@ -1,0 +1,119 @@
+/* Improved list styles: theme variables only, so it follows light/dark and the built-in theme. */
+body.tabwise-list-styles {
+  --list-spacing: 0.1em;
+  --list-bullet-size: 6px;
+  --list-indent: 2em;
+}
+
+/* Indentation lines (drawn by src/indentLines.ts). */
+.tabwise-indent-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+}
+.tabwise-indent-line {
+  position: absolute;
+  width: 5px;
+  margin-left: -2px;
+  z-index: 5; /* above Obsidian's fold chevron, which overlaps the guide of the parent item */
+  pointer-events: auto;
+  cursor: pointer;
+}
+.tabwise-indent-line::before {
+  content: '';
+  position: absolute;
+  left: 2px;
+  top: 0;
+  bottom: 0;
+  border-left: 1px solid var(--indentation-guide-color, var(--background-modifier-border));
+}
+.tabwise-indent-line:hover::before {
+  border-left-color: var(--indentation-guide-color-active, var(--interactive-accent));
+}
+
+/* Drag-and-drop (drawn by src/dragDrop.ts). */
+.tabwise-drag-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+}
+.tabwise-drag-handle {
+  position: absolute;
+  width: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-faint);
+  cursor: grab;
+  pointer-events: auto;
+  user-select: none;
+}
+.tabwise-drag-handle:hover {
+  color: var(--text-normal);
+}
+.tabwise-drag-layer.dragging .tabwise-drag-handle {
+  cursor: grabbing;
+}
+.tabwise-drop-bar {
+  position: absolute;
+  width: 160px;
+  height: 2px;
+  margin-top: -1px;
+  background: var(--interactive-accent);
+  border-radius: 1px;
+}
+body.tabwise-dragging,
+body.tabwise-dragging * {
+  cursor: grabbing;
+}
+.tabwise-drop-bar::before {
+  content: '';
+  position: absolute;
+  left: -4px;
+  top: -2px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--interactive-accent);
+}
+.tabwise-drop-slot {
+  position: absolute;
+  width: 160px;
+  height: 2px;
+  margin-top: -1px;
+  background: var(--interactive-accent);
+  border-radius: 1px;
+  opacity: 0.25;
+}
+.tabwise-drag-ghost {
+  position: absolute;
+  max-width: 320px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  opacity: 0.45;
+  color: var(--text-normal);
+  pointer-events: none;
+}
+/* Obsidian's own indentation guides are hidden while LevelMate draws its own (D27), in notes only: the file explorer's
+   lines use the same variable (--nav-indentation-guide-width), so they stay. */
+body.tabwise-indent-lines .workspace-leaf-content[data-type='markdown'] {
+  --indentation-guide-width: 0px;
+  --indentation-guide-width-active: 0px;
+}
+
+/* Preferences: About block (same layout as MindmapMate). */
+.tabwise-about { margin-bottom: 18px; padding-bottom: 12px; border-bottom: 1px solid var(--background-modifier-border); }
+.tabwise-about-name { font-size: var(--font-ui-large); font-weight: var(--font-bold); color: var(--text-normal); }
+.tabwise-about-title { color: var(--text-faint); font-size: var(--font-ui-smaller); }
+.tabwise-about p { margin: 6px 0 10px; color: var(--text-muted); }
+.tabwise-about-tip { text-align: left; color: var(--text-muted); margin: 1.2em 0 10px; }
+.tabwise-about-footer { display: flex; align-items: center; justify-content: flex-end; gap: 10px; color: var(--text-faint); font-size: var(--font-ui-small); }
+.tabwise-coffee { display: inline-block; line-height: 0; }
+.tabwise-coffee img { height: 30px; width: auto; }
