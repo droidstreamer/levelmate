@@ -17,7 +17,7 @@ interface Guide {
 export function indentLines(plugin: LevelMatePlugin) {
   return ViewPlugin.fromClass(
     class {
-      layer = document.createElement('div')
+      layer = createDiv()
       items: ListItem[] = []
       shown = false
 
@@ -58,7 +58,7 @@ export function indentLines(plugin: LevelMatePlugin) {
           write: (guides: Guide[]) => {
             this.layer.replaceChildren(
               ...guides.map((g) => {
-                const el = document.createElement('div')
+                const el = createDiv()
                 el.className = 'tabwise-indent-line'
                 el.dataset.line = String(g.line)
                 el.style.cssText = `left:${g.x}px;top:${g.top}px;height:${g.height}px`
@@ -91,7 +91,7 @@ export function indentLines(plugin: LevelMatePlugin) {
           if (!marker || !content || !top || !bottom) continue // outside the rendered viewport
           // The guide runs under the center of the rendered marker (bullet, number or checkbox) when the line has one.
           const lineEl = view.domAtPos(head.from).node
-          const cmLine = (lineEl instanceof Element ? lineEl : lineEl.parentElement)?.closest('.cm-line')
+          const cmLine = (lineEl.instanceOf(Element) ? lineEl : lineEl.parentElement)?.closest('.cm-line')
           const mEl = cmLine?.querySelector('input.task-list-item-checkbox') ?? cmLine?.querySelector('.cm-formatting-list')
           const mr = mEl?.getBoundingClientRect()
           guides.push({

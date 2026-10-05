@@ -11,7 +11,7 @@ export default class LevelMatePlugin extends Plugin {
   settings: LevelMateSettings = { ...DEFAULT_SETTINGS }
 
   async onload() {
-    this.settings = { ...DEFAULT_SETTINGS, ...(await this.loadData()) }
+    this.settings = { ...DEFAULT_SETTINGS, ...(await this.loadData() as Partial<LevelMateSettings> | null) }
     this.addSettingTab(new LevelMateSettingTab(this.app, this))
     registerHeadings(this)
     registerLists(this)

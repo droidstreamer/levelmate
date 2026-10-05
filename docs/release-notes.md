@@ -2,6 +2,10 @@
 
 Newest first. Plugin settings do not show this list; it lives here (and on the USB) for a details page if the plugin is ever shared.
 
+## 1.5.2
+- **No default hotkeys:** Move up, Move down, Fold and Unfold no longer come with keys, as Obsidian's guidelines ask, so they never clash with keys you already use. Set your own in Settings > Hotkeys (search "LevelMate"); Outliner users usually pick Ctrl+Shift+Up/Down and Ctrl+Up/Down. Tab and Shift+Tab work as before.
+- **Review cleanups:** uses Obsidian's own helpers for creating elements and cross-window checks, and reads saved settings with a proper type. No change in behavior.
+
 ## 1.5.1
 - **Plugin id is now `levelmate`:** it was `tabwise`. If you used an earlier build, rename `.obsidian/plugins/tabwise` to `.obsidian/plugins/levelmate` in your vault and your settings carry over.
 - **Settings search:** every setting now shows up in Obsidian's settings search (needs Obsidian 1.13 or later).

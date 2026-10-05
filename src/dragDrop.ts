@@ -25,11 +25,11 @@ const NEAR = 0.3 // ponytail: fixed share of the default line height; per-theme 
 export function dragDrop(plugin: LevelMatePlugin) {
   return ViewPlugin.fromClass(
     class {
-      layer = document.createElement('div')
-      handle = document.createElement('div')
-      bar = document.createElement('div')
-      ghost = document.createElement('div')
-      slots = document.createElement('div')
+      layer = createDiv()
+      handle = createDiv()
+      bar = createDiv()
+      ghost = createDiv()
+      slots = createDiv()
       doc: { text: unknown; parsed: Doc } | null = null
       hover = -1
       drag: Drag | null = null
@@ -216,7 +216,7 @@ export function dragDrop(plugin: LevelMatePlugin) {
 
       drawSlots(spots: { x: number, y: number }[]) {
         this.slots.replaceChildren(...spots.map(({ x, y }) => {
-          const el = document.createElement('div')
+          const el = createDiv()
           el.className = 'tabwise-drop-slot'
           el.style.cssText = `left:${x}px;top:${y}px`
           return el

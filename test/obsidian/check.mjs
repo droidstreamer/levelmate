@@ -64,7 +64,12 @@ await key('a', ['ctrl']); const s3 = await sel()
 await key('a', ['ctrl']); const s4 = await sel()
 check('Ctrl+A selects the item with its children, then the whole list, then the note (PRD F5; settings text claims four steps)', s1 === 'a\n  - a1' && s2 === 'a\n  - a1\n- b' && s3.startsWith('intro') && s4.startsWith('intro'), JSON.stringify([s1, s2, s3.length, s4.length]))
 
-// --- Move and fold hotkeys (registered commands, real keystrokes)
+// --- Move and fold hotkeys: no defaults ship (review of 1.5.1); bind them here as a user would, then use real keystrokes
+const defaults = await ev(`return ['move-up', 'move-down', 'fold', 'unfold'].map(c => app.commands.commands['levelmate:' + c]?.hotkeys?.length ?? 0)`)
+check('Move and fold commands ship without default hotkeys', defaults.every(n => n === 0), JSON.stringify(defaults))
+await ev(`const hm = app.hotkeyManager, k = (key, ...modifiers) => [{ modifiers, key }]
+  hm.setHotkeys('levelmate:move-up', k('ArrowUp', 'Mod', 'Shift')); hm.setHotkeys('levelmate:move-down', k('ArrowDown', 'Mod', 'Shift'))
+  hm.setHotkeys('levelmate:fold', k('ArrowUp', 'Mod')); hm.setHotkeys('levelmate:unfold', k('ArrowDown', 'Mod')); hm.bake(); return 1`)
 await fresh('- a\n- b\n  - b1\n- c', 1, -1); await key('ArrowDown', ['ctrl', 'shift'])
 await is('Ctrl+Shift+Down moves the item with its children', '- a\n- c\n- b\n  - b1')
 await key('ArrowUp', ['ctrl', 'shift']); await key('ArrowUp', ['ctrl', 'shift'])

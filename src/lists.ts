@@ -78,19 +78,17 @@ export function registerLists(plugin: LevelMatePlugin) {
     id: string,
     name: string,
     run: (v: EditorView, dry: boolean) => boolean,
-    key: string,
-    modifiers: ('Mod' | 'Shift')[],
   ) =>
+    // No default hotkeys (Obsidian guideline, review of 1.5.1): users bind these in Settings > Hotkeys.
     plugin.addCommand({
       id,
       name,
-      hotkeys: [{ modifiers, key }],
       editorCheckCallback: (checking, editor) => run(cmOf(editor), checking),
     })
-  cmd('move-up', 'Move up', (v, d) => runList(plugin, v, 'moveUp', d), 'ArrowUp', ['Mod', 'Shift'])
-  cmd('move-down', 'Move down', (v, d) => runList(plugin, v, 'moveDown', d), 'ArrowDown', ['Mod', 'Shift'])
-  cmd('fold', 'Fold', (v, d) => runFold(v, true, d), 'ArrowUp', ['Mod'])
-  cmd('unfold', 'Unfold', (v, d) => runFold(v, false, d), 'ArrowDown', ['Mod'])
+  cmd('move-up', 'Move up', (v, d) => runList(plugin, v, 'moveUp', d))
+  cmd('move-down', 'Move down', (v, d) => runList(plugin, v, 'moveDown', d))
+  cmd('fold', 'Fold', (v, d) => runFold(v, true, d))
+  cmd('unfold', 'Unfold', (v, d) => runFold(v, false, d))
 
   const tab = (action: ListAction) => (view: EditorView) => plugin.settings.enhanceTab && runList(plugin, view, action)
   plugin.registerEditorExtension(

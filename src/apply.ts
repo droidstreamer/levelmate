@@ -11,7 +11,7 @@ export function applyEdits(view: EditorView, edits: LineEdit[], cursor?: { line:
   const next = cursor && state.update({ changes }).state.doc
   view.dispatch({
     changes,
-    selection: next && { anchor: next.line(cursor!.line + 1).from + cursor!.col },
+    selection: cursor && next ? { anchor: next.line(cursor.line + 1).from + cursor.col } : undefined,
     userEvent: 'input',
   })
 }

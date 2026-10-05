@@ -12,7 +12,7 @@ Obsidian's Tab key knows lists but not headings, so restructuring a note means j
 
 - **Tab for lists.** Tab indents a list item and Shift+Tab outdents it, from anywhere on the line. Its sub-items come along.
 - **Tab for headings.** Tab turns `##` into `###` and Shift+Tab goes back. Shift the heading alone, or the heading with its sub-headings.
-- **Outliner-style editing.** Enter that knows lists, a cursor that skips the bullet, step-by-step Ctrl+A, and moving and folding items with Ctrl+Shift+Up/Down and Ctrl+Up/Down.
+- **Outliner-style editing.** Enter that knows lists, a cursor that skips the bullet, step-by-step Ctrl+A, and commands to move and fold items, on the keys you choose.
 - **Whole sections move.** Move up or down on a heading swaps its whole section with the one next to it.
 - **Drag and drop.** Grab the grip beside a list item or heading and drop the whole branch or section somewhere else. The bar shows the level it lands on.
 - **Tidy lists.** Optional list styles and indentation lines that fold an item when you click them.
@@ -31,7 +31,7 @@ Obsidian's Tab key knows lists but not headings, so restructuring a note means j
 1. Install LevelMate from **Settings > Community plugins** and enable it.
 2. Put the cursor on a list item or a heading and press **Tab** or **Shift+Tab**.
 3. To shift sub-headings too, open **Settings > LevelMate** and set **Tab on heading shifts** to *Heading + children*.
-4. To change the move and fold keys, open **Settings > Hotkeys** and search for "LevelMate".
+4. To move and fold items from the keyboard, open **Settings > Hotkeys**, search for "LevelMate" and give Move up, Move down, Fold and Unfold the keys you like (Outliner users: Ctrl+Shift+Up/Down and Ctrl+Up/Down).
 
 If you use Outliner or Heading Shifter, turn them off. They claim the same keys.
 
