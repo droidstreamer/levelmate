@@ -117,3 +117,6 @@ body.tabwise-indent-lines .workspace-leaf-content[data-type='markdown'] {
 .tabwise-about-footer { display: flex; align-items: center; justify-content: flex-end; gap: 10px; color: var(--text-faint); font-size: var(--font-ui-small); }
 .tabwise-coffee { display: inline-block; line-height: 0; }
 .tabwise-coffee img { height: 30px; width: auto; }
+/* Obsidian 1.13 puts the About row on its own card (as in FolderMate): no divider line or spacing of its own there. */
+.setting-item.tabwise-about-row { display: block; }
+.tabwise-about-row .tabwise-about { margin: 0; padding: 0; border: 0; }

@@ -2,6 +2,10 @@
 
 Newest first. Plugin settings do not show this list; it lives here (and on the USB) for a details page if the plugin is ever shared.
 
+## 1.5.3
+- **Move up stops at a heading:** moving the first item of a list up, when a heading sits above it, no longer deletes the heading and merges the two lists. The item stays put, as at the top of any list. Same for moving the last item down. Numbered lists under a heading also restart at 1 after a move instead of counting on from the list above.
+- **About box:** no line under "Made with care" and the coffee button; the About block sits on its own card, as in FolderMate.
+
 ## 1.5.2
 - **No default hotkeys:** Move up, Move down, Fold and Unfold no longer come with keys, as Obsidian's guidelines ask, so they never clash with keys you already use. Set your own in Settings > Hotkeys (search "LevelMate"); Outliner users usually pick Ctrl+Shift+Up/Down and Ctrl+Up/Down. Tab and Shift+Tab work as before.
 - **Review cleanups:** uses Obsidian's own helpers for creating elements and cross-window checks, and reads saved settings with a proper type. No change in behavior.

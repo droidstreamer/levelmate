@@ -17,9 +17,11 @@ export function renumberBlock(doc: Doc, block: Block): Block {
   const all = doc.lines.slice()
   all.splice(block.from, block.to - block.from + 1, ...block.lines)
   let s = block.from
-  while (s > 0 && all[s - 1].trim()) s--
+  // a list block ends at a blank line or a heading (lines outside the block keep their index, so doc.kinds still applies)
+  const edge = (i: number) => !all[i].trim() || doc.kinds[i] === 'HEADING'
+  while (s > 0 && !edge(s - 1)) s--
   let e = block.to
-  while (e + 1 < all.length && all[e + 1].trim()) e++
+  while (e + 1 < all.length && !edge(e + 1)) e++
   const runs: { len: number; n: number }[] = []
   for (let i = s; i <= e; i++) {
     const o = ORDERED.exec(all[i])

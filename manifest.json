@@ -1,7 +1,7 @@
 {
   "id": "levelmate",
   "name": "LevelMate",
-  "version": "1.5.2",
+  "version": "1.5.3",
   "minAppVersion": "1.13.0",
   "description": "Tab and Shift+Tab that indent list items and shift heading levels, with Outliner-style list editing.",
   "author": "Droid",

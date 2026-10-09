@@ -83,6 +83,13 @@ describe('move', () => {
     expect(run('- p\n  - a\n- q', 1, 'moveDown')).toBe('- p\n  - a\n- q')
     expect(run('- p\n  - a\n- q', 2, 'moveUp')).toBe('- q\n- p\n  - a')
   })
+  test('never crosses a heading or blank line into another list', () => {
+    const doc = '- x\n- y\n## H\n- a\n- b'
+    expect(run(doc, 3, 'moveUp')).toBe(doc)
+    expect(run(doc, 1, 'moveDown')).toBe(doc)
+    expect(run('- x\n\n- a', 2, 'moveUp')).toBe('- x\n\n- a')
+    expect(run('1. x\n## H\n1. a\n2. b', 3, 'moveUp')).toBe('1. x\n## H\n1. b\n2. a') // numbering does not run on from the list above
+  })
   test('first up and last down are no-ops', () => {
     expect(run('- a\n- b', 0, 'moveUp')).toBe('- a\n- b')
     expect(run('- a\n- b', 1, 'moveDown')).toBe('- a\n- b')

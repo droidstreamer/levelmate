@@ -64,7 +64,9 @@ export function runListAction(doc: Doc, line: number, action: ListAction, indent
   }
 
   const other = sibs[action === 'moveUp' ? sibs.indexOf(first) - 1 : sibs.indexOf(last) + 1]
-  if (!other) return NONE
+  // Roots of every list in the note share one array: only a neighbour right next to the block is a sibling, so a move never
+  // swaps across a heading or blank line between two lists (that dropped the heading and merged the lists).
+  if (!other || (action === 'moveUp' ? other.end !== first.line - 1 : other.line !== last.end + 1)) return NONE
   const mine = doc.lines.slice(first.line, last.end + 1)
   const theirs = doc.lines.slice(other.line, other.end + 1)
   return action === 'moveUp'
