@@ -1,12 +1,32 @@
 # LevelMate
 
-**One key for every level. Lists and headings alike.**
+**Everything you love about Outliner, plus headings. One plugin.**
 
-Obsidian's Tab key knows lists but not headings, so restructuring a note means juggling two plugins that fight over the same key. LevelMate gives Tab and Shift+Tab one job: move the line you are on up or down a level, whether it is a list item or a heading. Press Tab, done.
+Love how Outliner handles lists, but wish Tab worked on headings too? Until now that meant a second plugin, and the two fight over the same key. LevelMate does both. All the list editing Outliner users rely on is here, plus Tab for heading levels, whole sections that move and drag, and moving an item straight to the top or bottom of its list. Tab and Shift+Tab do one thing: move the line you are on up or down a level, whether it is a list item or a heading.
 
 <p align="center"><img src="docs/images/demo.gif" width="320" alt="A list item indenting with its sub-item on Tab, then a heading going from ## to ### with its sub-heading following"></p>
 
 ![LevelMate in an Obsidian note with nested lists, headings and indentation lines](docs/images/1-hero.png)
+
+## Coming from Outliner?
+
+You keep everything you are used to:
+
+- Tab and Shift+Tab indent and outdent items with their sub-items
+- Enter that knows lists, and a cursor that skips the bullet
+- Step-by-step Ctrl+A: the item, then the list, then the note
+- Move items up and down, fold and unfold, on the keys you choose
+- Drag and drop with a drop bar that shows the level
+- Improved list styles and indentation lines you can click to fold
+
+And you get more, in the same plugin:
+
+- **Tab on headings.** `##` becomes `###` and back, alone or with its sub-headings. No Heading Shifter needed, no key conflicts.
+- **Sections that move.** Move up or down on a heading, or drag it, and its whole section goes along.
+- **Move to top or bottom.** Send an item straight to the start or end of its list in one step.
+- **Headings are walls.** Moving an item never crosses a heading, so your lists stay apart and numbered lists keep counting from 1.
+
+Turn Outliner off when you switch, since both claim the same keys. Your notes are plain Markdown either way, so there is nothing to convert. LevelMate is an independent plugin, not made by or affiliated with Outliner's author.
 
 ## What it does
 

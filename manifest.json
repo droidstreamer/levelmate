@@ -3,7 +3,7 @@
   "name": "LevelMate",
   "version": "1.6.0",
   "minAppVersion": "1.13.0",
-  "description": "Tab and Shift+Tab that indent list items and shift heading levels, with Outliner-style list editing.",
+  "description": "Edit lists like Outliner and shift heading levels with Tab, all in one plugin.",
   "author": "Droid",
   "isDesktopOnly": true,
   "fundingUrl": "https://buymeacoffee.com/droidstreamer"
