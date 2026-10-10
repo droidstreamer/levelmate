@@ -135,3 +135,26 @@ describe('fold target', () => {
     expect(foldTarget(analyze('text'), 0)).toBeNull()
   })
 })
+
+describe('move to top / bottom of the list', () => {
+  test('top and bottom, with sub-items', () => {
+    expect(run('- a\n- b\n- c\n  - c1', 2, 'moveTop')).toBe('- c\n  - c1\n- a\n- b')
+    expect(run('- a\n  - a1\n- b\n- c', 0, 'moveBottom')).toBe('- b\n- c\n- a\n  - a1')
+  })
+  test('already there does nothing', () => {
+    expect(run('- a\n- b', 0, 'moveTop')).toEqual('- a\n- b')
+    expect(run('- a\n- b', 1, 'moveBottom')).toEqual('- a\n- b')
+  })
+  test('nested level stays inside its parent', () => {
+    expect(run('- p\n  - a\n  - b\n  - c\n- q', 3, 'moveTop')).toBe('- p\n  - c\n  - a\n  - b\n- q')
+    expect(run('- p\n  - a\n  - b\n- q', 1, 'moveBottom')).toBe('- p\n  - b\n  - a\n- q')
+  })
+  test('stops at a heading: the other list is not touched', () => {
+    expect(run('- x\n## H\n- a\n- b\n- c', 4, 'moveTop')).toBe('- x\n## H\n- c\n- a\n- b')
+    expect(run('- a\n- b\n## H\n- x', 0, 'moveBottom')).toBe('- b\n- a\n## H\n- x')
+  })
+  test('numbers are renumbered', () => {
+    expect(run('1. a\n2. b\n3. c', 2, 'moveTop')).toBe('1. c\n2. a\n3. b')
+    expect(run('1. a\n2. b\n3. c', 0, 'moveBottom')).toBe('1. b\n2. c\n3. a')
+  })
+})

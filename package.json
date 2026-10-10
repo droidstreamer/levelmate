@@ -1,6 +1,6 @@
 {
   "name": "levelmate",
-  "version": "1.5.3",
+  "version": "1.6.0",
   "private": true,
   "description": "Context-aware Tab and Shift+Tab for Obsidian lists and headings",
   "type": "module",

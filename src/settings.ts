@@ -76,7 +76,7 @@ export class LevelMateSettingTab extends PluginSettingTab {
         { name: 'Debug mode', desc: 'Writes what LevelMate is doing (each action and the edits it makes) to the developer console, for troubleshooting. Open it with Ctrl+Shift+I (Cmd+Option+I), Console tab, filter "LevelMate".', control: { type: 'toggle', key: 'debug' } },
       ] },
       { type: 'group', heading: 'Hotkeys', items: [
-        { name: 'Move and fold keys', aliases: ['hotkeys', 'shortcuts'], desc: 'Move up, Move down, Fold and Unfold have no keys until you set them. Outliner users: Ctrl+Shift+Up/Down and Ctrl+Up/Down are the usual choice.',
+        { name: 'Move and fold keys', aliases: ['hotkeys', 'shortcuts'], desc: 'Move up, Move down, Move to top, Move to bottom, Fold and Unfold have no keys until you set them. Outliner users: Ctrl+Shift+Up/Down and Ctrl+Up/Down are the usual choice.',
           render: row => { row.addButton(b => b.setButtonText('Open hotkeys').onClick(() => {
             // setting API is not in the public typings
             const setting = (this.app as unknown as { setting: { openTabById(id: string): { setQuery(q: string): void } } }).setting

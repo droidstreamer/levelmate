@@ -19,10 +19,10 @@ function runList(plugin: LevelMatePlugin, view: EditorView, action: ListAction, 
   let last = state.doc.lineAt(sel.to)
   if (!sel.empty && sel.to === last.from && last.number > first.number) last = state.doc.line(last.number - 1) // to-line start is not selected
   const doc = analyze(state.doc.toString())
-  const moving = action === 'moveUp' || action === 'moveDown'
+  const moving = action !== 'indent' && action !== 'outdent'
   let res
   if (doc.kinds[first.number - 1] === 'HEADING') {
-    if (!moving) return false
+    if (!moving || action === 'moveTop' || action === 'moveBottom') return false // sections only step one place
     const s = doc.sections.all.find((x) => x.line === first.number - 1)!
     if (last.number - 1 > s.end) return false // selection leaves the section
     res = moveSection(doc, first.number - 1, action === 'moveUp' ? -1 : 1)
@@ -87,6 +87,8 @@ export function registerLists(plugin: LevelMatePlugin) {
     })
   cmd('move-up', 'Move up', (v, d) => runList(plugin, v, 'moveUp', d))
   cmd('move-down', 'Move down', (v, d) => runList(plugin, v, 'moveDown', d))
+  cmd('move-top', 'Move to top of list', (v, d) => runList(plugin, v, 'moveTop', d))
+  cmd('move-bottom', 'Move to bottom of list', (v, d) => runList(plugin, v, 'moveBottom', d))
   cmd('fold', 'Fold', (v, d) => runFold(v, true, d))
   cmd('unfold', 'Unfold', (v, d) => runFold(v, false, d))
 

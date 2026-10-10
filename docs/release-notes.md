@@ -2,6 +2,9 @@
 
 Newest first. Plugin settings do not show this list; it lives here (and on the USB) for a details page if the plugin is ever shared.
 
+## 1.6.0
+- **Move to top / bottom of the list:** two new commands, "Move to top of list" and "Move to bottom of list", send the item (with its sub-items) all the way to the start or end of the list it is in. They stay inside the item's own level and stop at a heading or blank line, like Move up and Move down; numbered lists renumber. Like the other move commands they ship with no keys: set yours in Settings > Hotkeys (search "LevelMate").
+
 ## 1.5.3
 - **Move up stops at a heading:** moving the first item of a list up, when a heading sits above it, no longer deletes the heading and merges the two lists. The item stays put, as at the top of any list. Same for moving the last item down. Numbered lists under a heading also restart at 1 after a move instead of counting on from the list above.
 - **About box:** no line under "Made with care" and the coffee button; the About block sits on its own card, as in FolderMate.

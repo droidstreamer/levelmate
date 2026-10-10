@@ -5,7 +5,7 @@ import { renumberBlock } from './renumber'
 
 type Doc = ReturnType<typeof analyze>
 
-export type ListAction = 'indent' | 'outdent' | 'moveUp' | 'moveDown'
+export type ListAction = 'indent' | 'outdent' | 'moveUp' | 'moveDown' | 'moveTop' | 'moveBottom'
 
 export interface ListResult {
   edits: LineEdit[]
@@ -40,7 +40,7 @@ function selectedRoots(doc: Doc, start: ListItem, from: number, to: number): Lis
 export function runListAction(doc: Doc, line: number, action: ListAction, indentUnit = '\t', toLine = line): ListResult | null {
   const start = itemAt(doc.lists.all, line)
   if (!start) return null
-  const moving = action === 'moveUp' || action === 'moveDown'
+  const moving = action === 'moveUp' || action === 'moveDown' || action === 'moveTop' || action === 'moveBottom'
   if (!moving && start.line !== line) return null
 
   const group = toLine === line ? [start] : selectedRoots(doc, start, line, toLine)
@@ -61,6 +61,26 @@ export function runListAction(doc: Doc, line: number, action: ListAction, indent
     if (!first.parent) return NONE
     const step = first.indent - first.parent.indent
     return { edits: range.map((l) => ({ line: l, from: 0, to: unindent(doc.lines[l], step), insert: '' })), notice }
+  }
+
+  const at = sibs.indexOf(first)
+  const to = sibs.indexOf(last)
+  // To the very top/bottom of the list the block sits in: walk over siblings that touch (no heading or blank line between).
+  if (action === 'moveTop') {
+    let lo = at
+    while (lo > 0 && sibs[lo - 1].end === sibs[lo].line - 1) lo--
+    if (lo === at) return NONE
+    const above = doc.lines.slice(sibs[lo].line, first.line)
+    const mine = doc.lines.slice(first.line, last.end + 1)
+    return { edits: [], block: renumberBlock(doc, { from: sibs[lo].line, to: last.end, lines: [...mine, ...above] }), lineDelta: -above.length, notice }
+  }
+  if (action === 'moveBottom') {
+    let hi = to
+    while (hi < sibs.length - 1 && sibs[hi + 1].line === sibs[hi].end + 1) hi++
+    if (hi === to) return NONE
+    const below = doc.lines.slice(last.end + 1, sibs[hi].end + 1)
+    const mine = doc.lines.slice(first.line, last.end + 1)
+    return { edits: [], block: renumberBlock(doc, { from: first.line, to: sibs[hi].end, lines: [...below, ...mine] }), lineDelta: below.length, notice }
   }
 
   const other = sibs[action === 'moveUp' ? sibs.indexOf(first) - 1 : sibs.indexOf(last) + 1]
