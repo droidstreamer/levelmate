@@ -2,6 +2,9 @@
 
 Newest first. Plugin settings do not show this list; it lives here (and on the USB) for a details page if the plugin is ever shared.
 
+## 1.6.1
+- **Delete on a blank line:** with the cursor on an empty line and a bullet right below, Delete now pulls the bullet up whole, marker and all, and leaves the cursor at the start of its text. Before, it also dropped the `-` or number. Delete at the end of a bullet still joins the next one as before.
+
 ## 1.6.0
 - **Move to top / bottom of the list:** two new commands, "Move to top of list" and "Move to bottom of list", send the item (with its sub-items) all the way to the start or end of the list it is in. They stay inside the item's own level and stop at a heading or blank line, like Move up and Move down; numbered lists renumber. Like the other move commands they ship with no keys: set yours in Settings > Hotkeys (search "LevelMate").
 

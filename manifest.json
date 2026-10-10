@@ -1,7 +1,7 @@
 {
   "id": "levelmate",
   "name": "LevelMate",
-  "version": "1.6.0",
+  "version": "1.6.1",
   "minAppVersion": "1.13.0",
   "description": "Edit lists like Outliner and shift heading levels with Tab, all in one plugin.",
   "author": "Droid",

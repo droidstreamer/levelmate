@@ -49,6 +49,11 @@ await is('Shift+Enter adds a line inside the item', '- a\n  x\n- b')
 await fresh('- a\n- b', 1, 2); await key('Backspace')
 await is('Backspace at the start of the text joins with the line above', '- ab')
 
+await fresh('a\n\n- b\n- c', 1, 0); await key('Delete'); await type('X')
+await is('Delete on a blank line pulls the bullet up, marker kept, cursor at the text start', 'a\n- Xb\n- c')
+await fresh('- a\n- b', 0, -1); await key('Delete')
+await is('Delete at the end of an item still joins and drops the next marker', '- ab')
+
 // --- Stick cursor
 await fresh('- abc', 0, 0)
 check('caret set before the bullet jumps to the text start', (await cursor())[1] === 2 || (await key('ArrowRight'), (await cursor())[1]) >= 2, JSON.stringify(await cursor()))

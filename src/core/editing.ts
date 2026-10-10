@@ -30,6 +30,15 @@ export function prefixLen(doc: Doc, line: number): number | null {
   return k === 'LIST' || k === 'LIST_HEADING' ? parsePrefix(doc.lines[line])?.len ?? null : null
 }
 
+/**
+ * Delete on a blank line (not a list item) with a list item right below: the item should move up
+ * whole, marker kept. Returns the item's content column, or null when the rule does not apply.
+ */
+export function pullUpItem(doc: Doc, line: number): number | null {
+  if (doc.lines[line].trim() !== '' || doc.kinds[line] === 'PROTECTED') return null
+  return line + 1 < doc.lines.length ? prefixLen(doc, line + 1) : null
+}
+
 const before = (a: Pos, b: Pos) => a.line < b.line || (a.line === b.line && a.col < b.col)
 
 function newPrefix(p: NonNullable<ReturnType<typeof parsePrefix>>, from: NonNullable<ReturnType<typeof parsePrefix>>, sibling: boolean) {

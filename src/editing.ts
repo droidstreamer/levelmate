@@ -2,7 +2,7 @@ import { EditorSelection, EditorState, Prec } from '@codemirror/state'
 import { EditorView, keymap } from '@codemirror/view'
 import { applyEdits } from './apply'
 import { analyze } from './core/doc'
-import { EditResult, enter, parsePrefix, prefixLen, selectAll, shiftEnter } from './core/editing'
+import { EditResult, enter, parsePrefix, prefixLen, pullUpItem, selectAll, shiftEnter } from './core/editing'
 import type LevelMatePlugin from './main'
 
 type Doc = ReturnType<typeof analyze>
@@ -19,14 +19,26 @@ function runEdit(view: EditorView, fn: (d: Doc, line: number, col: number) => Ed
   return true
 }
 
-/** Backspace / Delete across a bullet: joins the lines and drops the marker. */
+/** Backspace / Delete across a bullet: joins the lines and drops the marker (not when pulling an item up over a blank line). */
 function join(view: EditorView, forward: boolean): boolean {
   const { state } = view
   const sel = state.selection.main
   const l = state.doc.lineAt(sel.head)
   const n = forward ? l.number + 1 : l.number // the line whose marker goes
   if (!sel.empty || n < 2 || n > state.doc.lines || (forward && sel.head !== l.to)) return false
-  const len = prefixLen(analyze(state.doc.toString()), n - 1)
+  const doc = analyze(state.doc.toString())
+  // blank line above a list item: drop the blank line, keep the item's marker
+  const pull = forward ? pullUpItem(doc, l.number - 1) : null
+  if (pull !== null) {
+    const next = state.doc.line(n)
+    view.dispatch({
+      changes: { from: l.from, to: next.from },
+      selection: { anchor: l.from + pull },
+      userEvent: 'delete.forward',
+    })
+    return true
+  }
+  const len = prefixLen(doc, n - 1)
   const marked = state.doc.line(n)
   if (len === null || (!forward && sel.head !== marked.from + len)) return false
   const from = state.doc.line(n - 1).to

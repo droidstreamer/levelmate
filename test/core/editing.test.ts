@@ -1,6 +1,6 @@
 import { describe, expect, test } from 'vitest'
 import { analyze } from '../../src/core/doc'
-import { enter, EditResult, selectAll, shiftEnter } from '../../src/core/editing'
+import { enter, EditResult, pullUpItem, selectAll, shiftEnter } from '../../src/core/editing'
 
 /** Applies edits like the editor; `|` marks the cursor in input and output. Null when not applicable. */
 function run(fn: (d: ReturnType<typeof analyze>, line: number, col: number) => EditResult | null, input: string) {
@@ -95,5 +95,20 @@ describe('select all', () => {
   })
   test('outside a list falls through', () => {
     expect(sel('text\n- a', [0, 1])).toBeNull()
+  })
+})
+
+describe('pullUpItem', () => {
+  const at = (t: string, line: number) => pullUpItem(analyze(t), line)
+  test('blank line above a bullet: content column of the bullet', () => {
+    expect(at('\n- b', 0)).toBe(2)
+    expect(at('text\n\n  - b', 1)).toBe(4)
+    expect(at('x\n\n3. b', 1)).toBe(3)
+  })
+  test('does not apply to text above, a bullet above, or a non-list below', () => {
+    expect(at('a\n- b', 0)).toBeNull()
+    expect(at('- a\n- b', 0)).toBeNull()
+    expect(at('\nb', 0)).toBeNull()
+    expect(at('\n', 0)).toBeNull()
   })
 })
